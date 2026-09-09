@@ -2,6 +2,7 @@
  * Copyright (c) 2020 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
+ * velhomago
  */
 
 #include <behaviors.dtsi>
@@ -16,6 +17,13 @@
             timeout-ms = <50>;
             key-positions = <52 42 0>;
             bindings = <&bt BT_CLR>;
+        };
+
+        // Combo: Pressionar 'M' (48) e ',' (49) juntas gera '?'
+        combo_question {
+            timeout-ms = <40>;
+            key-positions = <48 49>;
+            bindings = <&kp QMARK>;
         };
     };
 
@@ -63,16 +71,16 @@
         lower_layer {
             // ------------------------------------------------------------------------------------------------------------
             // |          | BT1     | BT2    |  BT3 |  BT4  |  BT5 |                    |      |       |       |      |       |       |
-            // |          |         |        |      |       |      |                    |      |       |       |  [   |   ]   |   \   |
+            // |          |         |        |      |       |  ?   |                    |      |       |       |  [   |   ]   |   \   |
             // |   ~      |  !      |  @     |  #   |  $    |  %   |                    |  ^   |  &    |  *    |  (   |   )   |   _   |
-            // | SHIFT    |  EP_ON  | EP_OFF |      |  (    |  {   |       |  |   DEL   |  }   |  )    |  +    |  {   |   }   | SHIFT |
+            // | SHIFT    |  EP_ON  | EP_OFF |      |  (    |  {   |       |  |   DEL   |  }   |  )    |  +    |  {   |   ?   | SHIFT |
             //                               |      |       |      |       |  |         |      |       |       |
 
             bindings = <
 &bt BT_CLR_ALL  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                     &bt BT_CLR  &bt BT_DISC 0  &trans           &trans    &trans    &trans
-&trans          &trans        &trans        &trans        &trans        &trans                           &trans      &trans         &trans           &kp LBKT  &kp RBKT  &kp BSLH
+&trans          &trans        &trans        &trans        &trans        &kp QMARK                        &trans      &trans         &trans           &kp LBKT  &kp RBKT  &kp BSLH
 &kp TILDE       &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                        &kp CARET   &kp AMPS       &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp UNDER
-&kp LSHIFT      &trans        &trans        &kp LPAR      &kp LBRC      &trans        &trans    &kp DEL  &kp RBRC    &kp RPAR       &kp KP_PLUS      &kp LBRC  &kp RBRC  &kp RSHFT
+&kp LSHIFT      &trans        &trans        &kp LPAR      &kp LBRC      &trans        &trans    &kp DEL  &kp RBRC    &kp RPAR       &kp KP_PLUS      &kp LBRC  &kp QMARK &kp RSHFT
                                             &trans        &trans        &trans        &trans    &trans   &trans      &trans         &trans
             >;
 
