@@ -2,7 +2,6 @@
  * Copyright (c) 2020 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
- * velhomago
  */
 
 #include <behaviors.dtsi>
@@ -19,7 +18,7 @@
             bindings = <&bt BT_CLR>;
         };
 
-        // Combo: Pressionar M (45) e Vírgula (46) juntas envia '?'
+        // Combo: M (45) + Vírgula (46) = Interrogação (?)
         combo_question {
             timeout-ms = <50>;
             key-positions = <45 46>;
@@ -52,17 +51,17 @@
         raise_layer {
             // ------------------------------------------------------------------------------------------------------------
             // |  F12    |  F1 |  F2 |  F3  |  F4  |  F5  |                   |  F6  |   F7  |   F8  |  F9  |  F10  |  F11  |
-            // |   `     |  1  |  2  |  3   |  4   |  5   |                   | HOME | PG_DN | PG_UP | END  | INS   |   -   |
-            // |CTRL/ESC |     |     |      |      |      |                   |  <-  |   v   |   ^   |  ->  |       |       |
-            // | SHIFT   |     |     |      |      |      |        |  |  DEL  |  +   |   -   |   =   |  [   |   ]   |   \   |
+            // |   `     |  1  |  2  |  3   |  4   |  5   |                   |  6   |   7   |   8   |  9   |   0   | MINUS |
+            // |CTRL/ESC |     |     |      |      |      |                   |  <-  |   v   |   ^   |  ->  | HOME  |  END  |
+            // | SHIFT   |     |     |      |      |      |        |  |  DEL  | PG_DN| PG_UP |   =   |  [   |   ]   |   \   |
             //                       |      |      |      |        |  |       |      |       |       |
 
             bindings = <
-&kp F12        &kp F1  &kp F2  &kp F3  &kp F4  &kp F5                    &kp F6       &kp F7     &kp F8     &kp F9     &kp F10   &kp F11
-&kp GRAVE      &kp N1  &kp N2  &kp N3  &kp N4  &kp N5                    &kp HOME     &kp PG_DN  &kp PG_UP  &kp END    &kp INS   &kp MINUS
-&mt LCTRL ESC  &trans  &trans  &trans  &trans  &trans                    &kp LEFT     &kp DOWN   &kp UP     &kp RIGHT  &trans    &trans
-&kp LSHIFT     &trans  &trans  &trans  &trans  &trans  &trans    &kp DEL &kp KP_PLUS  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT  &kp RSHFT
-                               &trans  &trans  &trans  &trans    &trans  &trans       &trans     &trans
+&kp F12        &kp F1  &kp F2  &kp F3  &kp F4  &kp F5                    &kp F6     &kp F7     &kp F8     &kp F9     &kp F10   &kp F11
+&kp GRAVE      &kp N1  &kp N2  &kp N3  &kp N4  &kp N5                    &kp N6     &kp N7     &kp N8     &kp N9     &kp N0    &kp MINUS
+&mt LCTRL ESC  &trans  &trans  &trans  &trans  &trans                    &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp HOME  &kp END
+&kp LSHIFT     &trans  &trans  &trans  &trans  &trans  &trans    &kp DEL &kp PG_DN  &kp PG_UP  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH
+                               &trans  &trans  &trans  &trans    &trans  &trans     &trans     &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -71,14 +70,14 @@
         lower_layer {
             // ------------------------------------------------------------------------------------------------------------
             // | BT_CLR_A| BT1     | BT2    |  BT3 |  BT4  |  BT5 |                    |BT_CLR|BT_DISC|       |      |       |       |
-            // |         |         |        |      |       |  ?   |                    |      |       |       |  [   |   ]   |   \   |
+            // |         |         |        |      |       |  ?   |                    |  :   |  [    |  ]    |  \   |   ;   |   '   |
             // |   ~     |  !      |  @     |  #   |  $    |  %   |                    |  ^   |  &    |  *    |  (   |   )   |   _   |
             // | SHIFT   |         |        |  (   |  {    |      |       |  |   DEL   |  }   |  )    |  +    |  {   |   ?   | SHIFT |
             //                              |      |       |      |       |  |         |      |       |       |
 
             bindings = <
 &bt BT_CLR_ALL  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                     &bt BT_CLR  &bt BT_DISC 0  &trans           &trans    &trans    &trans
-&trans          &trans        &trans        &trans        &trans        &kp QMARK                        &trans      &trans         &trans           &kp LBKT  &kp RBKT  &kp BSLH
+&trans          &trans        &trans        &trans        &trans        &kp QMARK                        &kp COLON   &kp LBKT       &kp RBKT         &kp BSLH  &kp SEMI  &kp SQT
 &kp TILDE       &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                        &kp CARET   &kp AMPS       &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp UNDER
 &kp LSHIFT      &trans        &trans        &kp LPAR      &kp LBRC      &trans        &trans    &kp DEL  &kp RBRC    &kp RPAR       &kp KP_PLUS      &kp LBRC  &kp QMARK &kp RSHFT
                                             &trans        &trans        &trans        &trans    &trans   &trans      &trans         &trans
