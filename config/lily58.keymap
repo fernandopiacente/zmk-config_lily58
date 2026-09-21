@@ -43,7 +43,7 @@
 
         raise_layer {
             // POLEGAR DIREITO (RAISE - mo 1):
-            // Fileira Superior: F1..F12
+            // Fileira Superior: F1..F12 (F11 na tecla do -)
             // Mão Esquerda: Controles de Mídia, Volume e Insert (Q, A..F, Z..X)
             // Mão Direita: Setas, Navegação (HJKL, HOME, END, PG_UP, PG_DN, DEL)
             bindings = <
@@ -51,7 +51,7 @@
 &kp GRAVE      &kp INS     &trans        &trans        &trans      &trans                    &trans     &trans     &trans     &trans     &trans    &kp MINUS
 &mt LCTRL ESC  &kp C_PP    &kp C_VOL_DN  &kp C_VOL_UP  &kp C_MUTE  &trans                    &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp HOME  &kp END
 &kp LSHIFT     &kp C_PREV  &kp C_NEXT    &trans        &trans      &trans  &trans    &kp DEL &kp PG_DN  &kp PG_UP  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH
-                                         &trans        &trans      &trans  &trans    &trans  &trans     &trans     &trans
+                                             &trans        &trans      &trans  &trans    &trans  &trans     &trans     &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -59,10 +59,10 @@
 
         lower_layer {
             // POLEGAR ESQUERDO (LOWER - mo 2):
-            // Mão Esquerda: Símbolos + Bluetooth
+            // Mão Esquerda: Símbolos + Seleção de Perfil BT (1 a 5)
             // Mão Direita: Numpad (UIO = 789 | JKL = 456 | M,. = 123 | Enter = 0)
             bindings = <
-&bt BT_CLR_ALL  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                     &bt BT_CLR  &bt BT_DISC 0  &kp KP_SLASH     &kp KP_MULTIPLY &kp KP_MINUS &kp KP_PLUS
+&trans          &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                     &trans      &trans         &kp KP_SLASH     &kp KP_MULTIPLY &kp KP_MINUS &kp KP_PLUS
 &trans          &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                        &trans      &kp N7         &kp N8           &kp N9          &kp SEMI     &kp SQT
 &kp TILDE       &kp CARET     &kp AMPS      &kp LPAR      &kp RPAR      &kp UNDER                        &trans      &kp N4         &kp N5           &kp N6          &kp COLON    &kp BSLH
 &kp LSHIFT      &trans        &trans        &kp LBRC      &kp RBRC      &trans        &trans    &kp DEL  &trans      &kp N1         &kp N2           &kp N3          &kp QMARK    &kp RSHFT
@@ -73,12 +73,14 @@
         };
 
         layer_3 {
+            // CAMADA ISOLADA NA MÃO ESQUERDA (LOWER + RAISE)
+            // NENHUMA tecla de Bluetooth existe na mão direita!
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans
+&bt BT_CLR      &bt BT_CLR_ALL &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans          &trans         &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans          &trans         &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans          &trans         &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                                       &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans
             >;
         };
     };
