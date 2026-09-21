@@ -43,15 +43,16 @@
 
         raise_layer {
             // POLEGAR DIREITO (RAISE - mo 1):
-            // Fileira Superior: F1..F12 (F11 na tecla do -)
+            // Topo: F1..F12 (F11 no Hífen)
+            // Segunda Fileira: F11 de Reserva na tecla do Igual (=)
             // Mão Esquerda: Controles de Mídia, Volume e Insert (Q, A..F, Z..X)
-            // Mão Direita: Setas, Navegação (HJKL, HOME, END, PG_UP, PG_DN, DEL)
+            // Mão Direita: Setas e Navegação (HJKL, HOME, END, PG_UP, PG_DN, DEL)
             bindings = <
 &kp F12        &kp F1      &kp F2        &kp F3        &kp F4      &kp F5                    &kp F6     &kp F7     &kp F8     &kp F9     &kp F10   &kp F11
-&kp GRAVE      &kp INS     &trans        &trans        &trans      &trans                    &trans     &trans     &trans     &trans     &trans    &kp MINUS
+&kp GRAVE      &kp INS     &trans        &trans        &trans      &trans                    &trans     &trans     &trans     &trans     &trans    &kp F11
 &mt LCTRL ESC  &kp C_PP    &kp C_VOL_DN  &kp C_VOL_UP  &kp C_MUTE  &trans                    &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp HOME  &kp END
 &kp LSHIFT     &kp C_PREV  &kp C_NEXT    &trans        &trans      &trans  &trans    &kp DEL &kp PG_DN  &kp PG_UP  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH
-                                             &trans        &trans      &trans  &trans    &trans  &trans     &trans     &trans
+                                         &trans        &trans      &trans  &trans    &trans  &trans     &trans     &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
