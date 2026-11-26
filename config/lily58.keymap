@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
- * SPDX-License-Identifier: MIT
+- Copyright (c) 2020 The ZMK Contributors
+- SPDX-License-Identifier: MIT
  */
 
 #include <behaviors.dtsi>
@@ -8,6 +8,26 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    behaviors {
+        // Envia TILDE (~) por padrão, e GRAVE (`) quando Shift está pressionado
+        tilde_grave: tilde_grave {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp TILDE>, <&kp GRAVE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        // Ativa a layer_3 (Bluetooth) SOMENTE ao segurar LOWER (2) + RAISE (1) juntos
+        tri_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+
     combos {
         compatible = "zmk,combos";
 
@@ -24,18 +44,18 @@
 
         default_layer {
             // ------------------------------------------------------------------------------------------------------------
-            // |   `      |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   -   |
+            // | ~ / `    |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   -   |
             // |  TAB     |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   =   |
             // |hCTRL tESC|  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
             // | SHIFT    |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-            //                        | ALT  | GUI  | LOWER|  SPACE |  | BSPC  | ENTER| RAISE | RCTRL |
+            //                        | ALT  | GUI  | LOWER|  BSPC  |  | SPACE | ENTER| RAISE | RCTRL |
 
             bindings = <
-&kp GRAVE      &kp N1  &kp N2  &kp N3    &kp N4     &kp N5                         &kp N6   &kp N7  &kp N8     &kp N9   &kp N0    &kp MINUS
-&kp TAB        &kp Q   &kp W   &kp E     &kp R      &kp T                          &kp Y    &kp U   &kp I      &kp O    &kp P     &kp EQUAL
-&mt LCTRL ESC  &kp A   &kp S   &kp D     &kp F      &kp G                          &kp H    &kp J   &kp K      &kp L    &kp SEMI  &kp SQT
-&kp LSHFT      &kp Z   &kp X   &kp C     &kp V      &kp B   &kp LBKT     &kp RBKT  &kp N    &kp M   &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
-                               &kp LALT  &kp LMETA  &mo 2   &kp SPACE    &kp BSPC  &kp RET  &mo 1   &kp RCTRL
+&tilde_grave   &kp N1  &kp N2  &kp N3    &kp N4     &kp N5                        &kp N6     &kp N7  &kp N8     &kp N9   &kp N0    &kp MINUS
+&kp TAB        &kp Q   &kp W   &kp E     &kp R      &kp T                         &kp Y      &kp U   &kp I      &kp O    &kp P     &kp EQUAL
+&mt LCTRL ESC  &kp A   &kp S   &kp D     &kp F      &kp G                         &kp H      &kp J   &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LSHFT      &kp Z   &kp X   &kp C     &kp V      &kp B   &kp LBKT    &kp RBKT  &kp N      &kp M   &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+                               &kp LALT  &kp LMETA  &mo 2   &kp BSPC    &kp SPACE &kp RET    &mo 1   &kp RCTRL
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -43,15 +63,15 @@
 
         raise_layer {
             // POLEGAR DIREITO (RAISE - mo 1):
-            // Topo: F1..F12 (F11 no Hífen)
-            // Segunda Fileira: F11 de Reserva na tecla do Igual (=)
-            // Mão Esquerda: Controles de Mídia, Volume e Insert (Q, A..F, Z..X)
+            // Topo: F1..F12 (F11 no Hífen, F12 no Til/Crase)
+            // Segunda Fileira: CAPS no Tab, INS no Q, PSCRN no W e no P, F11 de reserva no Igual (=)
+            // Mão Esquerda: Controles de Mídia e Volume (A..F, Z..X)
             // Mão Direita: Setas e Navegação (HJKL, HOME, END, PG_UP, PG_DN, DEL)
             bindings = <
-&kp F12        &kp F1      &kp F2        &kp F3        &kp F4      &kp F5                    &kp F6     &kp F7     &kp F8     &kp F9     &kp F10   &kp F11
-&kp GRAVE      &kp INS     &trans        &trans        &trans      &trans                    &trans     &trans     &trans     &trans     &trans    &kp F11
-&mt LCTRL ESC  &kp C_PP    &kp C_VOL_DN  &kp C_VOL_UP  &kp C_MUTE  &trans                    &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp HOME  &kp END
-&kp LSHIFT     &kp C_PREV  &kp C_NEXT    &trans        &trans      &trans  &trans    &kp DEL &kp PG_DN  &kp PG_UP  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH
+&kp F12        &kp F1      &kp F2        &kp F3        &kp F4      &kp F5                    &kp F6     &kp F7     &kp F8     &kp F9     &kp F10    &kp F11
+&kp CAPS       &kp INS     &kp PSCRN     &trans        &trans      &trans                    &trans     &trans     &trans     &trans     &kp PSCRN  &kp F11
+&mt LCTRL ESC  &kp C_PP    &kp C_VOL_DN  &kp C_VOL_UP  &kp C_MUTE  &trans                    &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp HOME   &kp END
+&kp LSHIFT     &kp C_PREV  &kp C_NEXT    &trans        &trans      &trans  &trans    &kp DEL &kp PG_DN  &kp PG_UP  &kp EQUAL  &kp LBKT   &kp RBKT   &kp BSLH
                                          &trans        &trans      &trans  &trans    &trans  &trans     &trans     &trans
             >;
 
@@ -60,12 +80,12 @@
 
         lower_layer {
             // POLEGAR ESQUERDO (LOWER - mo 2):
-            // Mão Esquerda: Símbolos + Seleção de Perfil BT (1 a 5)
+            // Mão Esquerda: Símbolos (sem comandos BT para evitar acionamento acidental)
             // Mão Direita: Numpad (UIO = 789 | JKL = 456 | M,. = 123 | Enter = 0)
             bindings = <
-&trans          &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                     &trans      &trans         &kp KP_SLASH     &kp KP_MULTIPLY &kp KP_MINUS &kp KP_PLUS
+&trans          &trans        &trans        &trans        &trans        &trans                           &trans      &trans         &kp KP_SLASH     &kp KP_MULTIPLY &kp KP_MINUS &kp KP_PLUS
 &trans          &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                        &trans      &kp N7         &kp N8           &kp N9          &kp SEMI     &kp SQT
-&kp TILDE       &kp CARET     &kp AMPS      &kp LPAR      &kp RPAR      &kp UNDER                        &trans      &kp N4         &kp N5           &kp N6          &kp COLON    &kp BSLH
+&kp GRAVE       &kp CARET     &kp AMPS      &kp LPAR      &kp RPAR      &kp UNDER                        &trans      &kp N4         &kp N5           &kp N6          &kp COLON    &kp BSLH
 &kp LSHIFT      &trans        &trans        &kp LBRC      &kp RBRC      &trans        &trans    &kp DEL  &trans      &kp N1         &kp N2           &kp N3          &kp QMARK    &kp RSHFT
                                             &trans        &trans        &trans        &trans    &trans   &kp N0      &trans         &trans
             >;
@@ -74,14 +94,14 @@
         };
 
         layer_3 {
-            // CAMADA ISOLADA NA MÃO ESQUERDA (LOWER + RAISE)
-            // NENHUMA tecla de Bluetooth existe na mão direita!
+            // CAMADA DE BLUETOOTH (LOWER + RAISE simultâneos):
+            // Isolada na mão esquerda: 1..5 = BT_SEL 0..4 | Esc/Til = BT_CLR | Tab = BT_CLR_ALL
             bindings = <
-&bt BT_CLR      &bt BT_CLR_ALL &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans          &trans         &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans          &trans         &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans          &trans         &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                                       &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans
+&bt BT_CLR      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4              &trans  &trans  &trans  &trans  &trans  &trans
+&bt BT_CLR_ALL  &trans        &trans        &trans        &trans        &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans          &trans        &trans        &trans        &trans        &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans          &trans        &trans        &trans        &trans        &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                                            &trans        &trans        &trans  &trans    &trans  &trans  &trans  &trans
             >;
         };
     };
